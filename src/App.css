@@ -127,12 +127,14 @@ button:disabled, select:disabled {
 
 /* === New Grid and Card Styles === */
 .visualizer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex; /* Use Flexbox */
+  justify-content: center; /* Center items horizontally */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
   gap: 1.5rem;
   padding: 1.5rem;
   flex-grow: 1;
-  overflow-y: auto; /* Allows scrolling if there are many cards */
+  overflow-y: auto;
+  align-items: flex-start;
 }
 
 .visualizer-card {
@@ -142,6 +144,8 @@ button:disabled, select:disabled {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  flex-basis: 400px; /* Set a base width for each card */
+  min-height: 350px; /* Ensure a good height */
 }
 
 .visualizer-card h3 {
@@ -213,4 +217,55 @@ button:disabled, select:disabled {
   cursor: pointer;
   font-size: 1rem; /* Increased font size */
   color: #c9d1d9;
+}
+
+.array-input {
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  color: #c9d1d9;
+  border-radius: 6px;
+  padding: 0.7rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  min-width: 300px;
+}
+
+/* === View Mode Toggle === */
+.view-mode-toggle {
+  display: flex;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.view-mode-toggle button {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  border-left: 1px solid #30363d;
+}
+
+.view-mode-toggle button:first-child {
+  border-left: none;
+}
+
+.view-mode-toggle button.active {
+  background-color: #58a6ff;
+  color: #fff;
+}
+
+/* === Cell Styling === */
+.cell {
+  width: 50px;
+  height: 50px;
+  background-color: #58a6ff;
+  margin: 0 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 4px;
 }

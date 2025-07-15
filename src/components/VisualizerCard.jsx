@@ -12,7 +12,7 @@ const PRIMARY_COLOR = '#58a6ff';
 const SECONDARY_COLOR = '#f87171';
 const SORTED_COLOR = '#4ade80';
 
-const VisualizerCard = ({ algorithmName, array, isSorting, onSortComplete }) => {
+const VisualizerCard = ({ algorithmName, array, isSorting, onSortComplete, viewMode }) => {
   const [localArray, setLocalArray] = useState([]);
   const [activeIndices, setActiveIndices] = useState([]);
   const [sortedIndices, setSortedIndices] = useState([]);
@@ -68,27 +68,41 @@ const VisualizerCard = ({ algorithmName, array, isSorting, onSortComplete }) => 
     <div className="visualizer-card">
       <h3>{algorithmName}</h3>
       <div className="bar-container">
-        {localArray.map((value, idx) => {
-          let backgroundColor = PRIMARY_COLOR;
-          if (sortedIndices.includes(idx)) {
-            backgroundColor = SORTED_COLOR;
-          }
-          if (activeIndices.includes(idx)) {
-            backgroundColor = SECONDARY_COLOR;
-          }
-          
-          return (
-            <div
-              className="array-bar"
-              key={idx}
-              style={{
-                height: `${value / 1.5}px`,
-                backgroundColor: backgroundColor,
-                transition: 'background-color 0.2s ease',
-              }}
-            ></div>
-          );
-        })}
+        {viewMode === 'bar'
+          ? // Bar View
+            localArray.map((value, idx) => {
+              let backgroundColor = PRIMARY_COLOR;
+              if (sortedIndices.includes(idx)) backgroundColor = SORTED_COLOR;
+              if (activeIndices.includes(idx)) backgroundColor = SECONDARY_COLOR;
+              
+              return (
+                <div
+                  className="array-bar"
+                  key={idx}
+                  style={{
+                    height: `${value / 1.5}px`,
+                    backgroundColor: backgroundColor,
+                  }}
+                ></div>
+              );
+            })
+          : // Cell View
+            localArray.map((value, idx) => {
+              // ✅ Add this same color logic here
+              let backgroundColor = PRIMARY_COLOR;
+              if (sortedIndices.includes(idx)) backgroundColor = SORTED_COLOR;
+              if (activeIndices.includes(idx)) backgroundColor = SECONDARY_COLOR;
+
+              return (
+                <div
+                  className="cell"
+                  key={idx}
+                  style={{ backgroundColor: backgroundColor }}
+                >
+                  {value}
+                </div>
+              );
+            })}
       </div>
       <div className="stats-container">
         <span>Swaps: {stats.swaps}</span>

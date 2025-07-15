@@ -15,14 +15,21 @@ const initialActiveAlgos = ALL_ALGORITHMS.reduce((acc, algo) => {
 }, {});
 
 function App() {
+  const [viewMode, setViewMode] = useState('bar');
   const [masterArray, setMasterArray] = useState([]);
+  const [arrayInput, setArrayInput] = useState(''); 
   const [isSorting, setIsSorting] = useState(false);
   const [arraySize, setArraySize] = useState(20);
   const [animationSpeed, setAnimationSpeed] = useState(50);
   const [activeAlgorithms, setActiveAlgorithms] = useState(initialActiveAlgos);
   const completionCounter = useRef(0);
 
-  const generateArray = () => {
+  useEffect(() => {
+    setArrayInput(masterArray.join(', '));
+  }, [masterArray]);
+
+  // This function ONLY generates a new random array.
+  const generateRandomArray = () => {
     setIsSorting(false);
     const newArray = [];
     for (let i = 0; i < arraySize; i++) {
@@ -30,6 +37,25 @@ function App() {
     }
     setMasterArray(newArray);
   };
+
+  // This function ONLY parses the text input.
+  const generateArrayFromInput = () => {
+    setIsSorting(false);
+    const parsedInput = arrayInput
+      .split(',')
+      .map(s => Number(s.trim()))
+      .filter(n => !isNaN(n) && n > 0);
+
+    if (parsedInput.length > 0) {
+      setMasterArray(parsedInput);
+    } else {
+      generateRandomArray();
+    }
+  };
+
+  useEffect(() => {
+    generateRandomArray();
+  }, [arraySize]);
   
   const handleAlgorithmToggle = (algoName) => {
     setActiveAlgorithms(prev => ({
@@ -39,7 +65,7 @@ function App() {
   };
 
   useEffect(() => {
-    generateArray();
+    generateRandomArray();
   }, [arraySize]);
 
   const handleSort = () => {
@@ -61,7 +87,8 @@ function App() {
     <div className="app-container">
       <Header />
       <ControlPanel
-        onGenerateArray={generateArray}
+        onGenerateRandom={generateRandomArray} // Pass the random generator
+        onGenerateFromInput={generateArrayFromInput} // Pass the input parser
         onSort={handleSort}
         isSorting={isSorting}
         arraySize={arraySize}
@@ -70,6 +97,10 @@ function App() {
         onSpeedChange={setAnimationSpeed}
         activeAlgorithms={activeAlgorithms}
         onAlgorithmToggle={handleAlgorithmToggle}
+        arrayInput={arrayInput}
+        onArrayInputChange={setArrayInput}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
       />
       <VisualizerGrid 
         masterArray={masterArray} 
@@ -77,6 +108,7 @@ function App() {
         onSortComplete={handleSortCompletion} 
         animationSpeed={animationSpeed}
         activeAlgorithms={activeAlgorithms}
+        viewMode={viewMode}
       />
     </div>
   );

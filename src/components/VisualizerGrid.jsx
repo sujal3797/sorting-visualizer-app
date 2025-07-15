@@ -1,7 +1,7 @@
 import React from 'react';
 import VisualizerCard from './VisualizerCard';
 
-const VisualizerGrid = ({ masterArray, isSorting, onSortComplete, animationSpeed, activeAlgorithms }) => {
+const VisualizerGrid = ({ masterArray, isSorting, onSortComplete, animationSpeed, activeAlgorithms, viewMode }) => {
   // Filter for only the active algorithms before mapping
   const algorithmsToDisplay = Object.keys(activeAlgorithms).filter(
     (algo) => activeAlgorithms[algo]
@@ -16,7 +16,8 @@ const VisualizerGrid = ({ masterArray, isSorting, onSortComplete, animationSpeed
           array={masterArray}
           isSorting={isSorting}
           onSortComplete={onSortComplete}
-          animationSpeed={animationSpeed} // Pass speed to card
+          animationSpeed={animationSpeed}
+          viewMode={viewMode} // Pass speed to card
         />
       ))}
     </div>
