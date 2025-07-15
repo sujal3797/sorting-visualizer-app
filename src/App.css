@@ -28,9 +28,9 @@ header {
 
 /* === General Button Styling === */
 button, select {
-  padding: 0.6rem 1.2rem;
+  padding: 0.7rem 1.3rem; /* Increased padding */
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
   border: 1px solid #30363d;
   border-radius: 6px;
@@ -123,4 +123,94 @@ button:disabled, select:disabled {
   display: inline-block;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+}
+
+/* === New Grid and Card Styles === */
+.visualizer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 1.5rem;
+  flex-grow: 1;
+  overflow-y: auto; /* Allows scrolling if there are many cards */
+}
+
+.visualizer-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.visualizer-card h3 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #8b949e;
+}
+
+.bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 180px;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #8b949e;
+}
+
+/* Add these styles for the main control panel */
+
+.main-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 1rem;
+  gap: 1.5rem; /* This creates space between each control */
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  flex-wrap: wrap;
+}
+
+/* This specifically makes the slider labels visible */
+.slider-container label {
+  font-weight: 600;
+  color: #c9d1d9;
+}
+
+.algo-selection-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem 1.5rem 1rem;
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  
+}
+
+.checkbox-container input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.checkbox-container label {
+  cursor: pointer;
+  font-size: 1rem; /* Increased font size */
+  color: #c9d1d9;
 }
